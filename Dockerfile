@@ -1,13 +1,13 @@
-# Sử dụng Tomcat 9
 FROM tomcat:9.0-jdk11
 
-# Xóa ứng dụng mặc định của Tomcat
+# Xóa webapp mặc định
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy WAR build sẵn thành ROOT.war
+# Copy WAR thành ROOT.war
 COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
 
+# Render sẽ cấp cổng qua biến môi trường $PORT
 EXPOSE 8080
 
-# Render sẽ set biến PORT nên ta update Tomcat dùng PORT đó
+# Update Tomcat để lắng nghe trên $PORT thay vì 8080
 CMD ["sh", "-c", "sed -i 's/8080/${PORT}/g' /usr/local/tomcat/conf/server.xml && catalina.sh run"]
