@@ -1,13 +1,13 @@
 FROM tomcat:9.0-jdk11
 
-# Xóa webapp mặc định
+# Xóa app mặc định
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy WAR thành ROOT.war
-COPY ROOT.war /usr/local/tomcat/webapps/ROOT.war
+# Copy file WAR từ dist/ của NetBeans
+COPY dist/ch04_ex1_survey.war /usr/local/tomcat/webapps/ROOT.war
 
-# Render sẽ cấp cổng qua biến môi trường $PORT
+# Tomcat mặc định chạy trên 8080, Render sẽ tự map $PORT → 8080
 EXPOSE 8080
 
-# Update Tomcat để lắng nghe trên $PORT thay vì 8080
-CMD ["sh", "-c", "sed -i 's/8080/${PORT}/g' /usr/local/tomcat/conf/server.xml && catalina.sh run"]
+# Run Tomcat ở foreground
+CMD ["catalina.sh", "run"]
