@@ -1,4 +1,4 @@
-FROM tomcat:9.0-jdk11
+FROM tomcat:9.0-jdk22
 
 # Xóa ứng dụng mặc định
 RUN rm -rf /usr/local/tomcat/webapps/*
